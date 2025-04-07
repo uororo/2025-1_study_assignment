@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 using System;
 
 namespace calculator
@@ -50,7 +58,68 @@ namespace calculator
     public class Calculator
     {
         // ---------- TODO ----------
-        
+        public double Calculate(double num1, string op, double num2)
+        {
+            double temp;
+            double n;
+
+            switch (op)
+            {
+                case "+": return (num1 + num2); break;
+                case "-": return (num1 - num2); break;
+                case "*": return (num1 * num2); break;
+                case "/":
+                    if (num2 == 0) throw new DivideByZeroException("Division by zero is not allowed");
+                    else return (num1 / num2); break;
+                case "**":
+                    temp = num1;
+                    if (num2 > 0)
+                    {
+                        for (int a = 1; a < num2; a++) num1 *= temp;
+                        return num1;
+                    }
+                    else
+                    {
+                        for (int a = 1; a < -(num2); a++) num1 *= temp;
+                        return 1 / num1;
+                    }
+                case "G":
+                    if (num1 < num2)
+                    {
+                        temp = num1;
+                        num1 = num2;
+                        num2 = temp;
+                    }
+                    while (num2 != 0)
+                    {
+                        n = num1 % num2;
+                        num1 = num2;
+                        num2 = n;
+                    }
+                    return num1;
+                case "L":
+                    double temp_num1 = num1;
+                    double temp_num2 = num2;
+                    if (num1 < num2)
+                    {
+                        temp = num1;
+                        num1 = num2;
+                        num2 = temp;
+                    }
+                    while (num2 != 0)
+                    {
+                        n = num1 % num2;
+                        num1 = num2;
+                        num2 = n;
+                    }
+                    return (temp_num1 * temp_num2 / num1);
+                case "%":
+                    if (num2 > num1) return (num2 % num1);
+                    else return (num1 % num2);
+
+                default: throw new InvalidOperationException("Invalid operator");
+            }
+        }
         // --------------------
     }
 }
